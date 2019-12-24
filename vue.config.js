@@ -1,4 +1,5 @@
 module.exports =  {
+    publicPath: process.env.NODE_ENV === 'production' ? "./" : "/",
     devServer: {
         // host: 'www.gshsoft.com',
         proxy: {
