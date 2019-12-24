@@ -11,14 +11,14 @@
     
     <!-- 宫格 -->
     <van-grid :border="false" icon-size="0.96rem">
-      <van-grid-item v-for="(grid,index) in grids" :key="'grid'+ index" :icon="grid.icon" :text="grid.name" />
+      <van-grid-item v-for="(grid,index) in grids" :key="'grid'+ index" :icon="grid.icon" :text="grid.name" to="/articlelist"  />
     </van-grid>
 
     <!-- 教学视频 -->
     <div class="home-content">
       <div class="title-container">
         <div class="title">教学视频</div>
-        <div class="more-box">
+        <div class="more-box" @click="toTeachList">
           <div class="more">更多</div>
           <van-icon name="arrow" size=".26rem" color="#9B9B9B"></van-icon>
         </div>
@@ -26,7 +26,7 @@
       <div class="content">
         <!-- type="flex" justify="space-between" style="flex-wrap: wrap" -->
         <van-row gutter="13">
-          <van-col :span="12" v-for="(video,index) in videos" :key="`video${index}`">
+          <van-col :span="12" v-for="(video,index) in videos" @click="toteachVideo(video)" :key="`video${index}`">
             <img class="video-pic" :src="video.photo_full" alt="">
             <div class="video-title">
               {{video.item_name}}-{{video.teacher}}
@@ -40,13 +40,13 @@
     <div class="home-content">
       <div class="title-container">
         <div class="title">附近场馆</div>
-        <div class="more-box">
+        <div class="more-box" @click="toSiteList">
           <div class="more">更多</div>
           <van-icon name="arrow" size=".26rem" color="#9B9B9B"></van-icon>
         </div>
       </div>
       <div class="content">
-        <div class="site-cell" v-for="site in sites" :key="`site${site.train_id}`" :style="{'background-image': 'url(' + site.train_img_full + ')'}">
+        <div class="site-cell" v-for="site in sites" @click="toSiteDetail(site.train_id)" :key="`site${site.train_id}`" :style="{'background-image': 'url(' + site.train_img_full + ')'}">
           <div class="site-info">
             <img src="@/assets/img/home/dingwei.png" class="site-icon" alt="">
             {{site.train_name}}
@@ -101,6 +101,21 @@ export default {
       if (banner.url_address){
           window.location.href = banner.url_address;
       }
+    },
+    toSiteDetail(id){
+      this.$router.push(`/sitedetail/${id}`);
+    },
+
+    toSiteList(){
+        this.$router.push(`/site/list`);
+    },
+
+    toteachVideo(toteachVideo){
+      this.$router.push(`/teachvideo/${toteachVideo.item_id}`)
+    },
+
+    toTeachList(){
+      this.$router.push('/teachlist')
     }
   }
 }

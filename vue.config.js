@@ -1,5 +1,6 @@
 module.exports =  {
     devServer: {
+        // host: 'www.gshsoft.com',
         proxy: {
             '/api': {
                 target: 'https://api.zuxun.net/',

@@ -13,8 +13,9 @@ const server = axios.create({
 server.interceptors.request.use(config => {
     config.url = '/api' + config.url;
     if (config.data){
-        config.data.u_token = 'MzEzMTNmOWM5Yjk3NTQ0NzY1NGUzZDcwNWQ0N2Y0NmI';
+        config.data.u_token = 'MTU=';
     }
+    config.headers.u_token = 'MTU=';
     if (config.method.toLowerCase() == 'post' && config.data){
         config.data = qs.stringify(config.data);
     }

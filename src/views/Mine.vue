@@ -1,20 +1,24 @@
 <template>
   <div>
-    <van-nav-bar
+    <!-- right-text="保存修改" -->
+    <!-- <van-nav-bar
       title="我的信息"
-      right-text="保存修改"
+      
       fixed
       @click-right="saveUserInfo"
-    />
-    <div style="margin-top: 46px;">
-      <div class="user-header">
-        <div class="title">
-          我的头像
+      style="margin-top: 46px;"
+    /> -->
+    <div  v-if="userInfo">
+        <div class="user-header">
+          <div class="title">
+            我的头像
+          </div>
+          <div class="user-pic">
+            <van-uploader :after-read="imageGetted">
+              <img :src="userInfo.user_photo" alt="">
+            </van-uploader>
+          </div>
         </div>
-        <div class="user-pic">
-          <img :src="userInfo.user_photo" alt="">
-        </div>
-      </div>
         <div class="temp-view" style="height: .36rem;"></div>
         <van-cell-group>
             <van-field label="手机号码" input-align="right" type="tel" right-icon="arrow" v-model="userInfo.phone" placeholder="请输入手机号码" />
@@ -62,8 +66,10 @@
 </template>
 
 <script>
-import { CellGroup, Field , Cell, Picker, Popup, DatetimePicker ,NavBar} from "vant";
+import { CellGroup, Field , Cell, Picker, Popup, DatetimePicker ,NavBar , Uploader} from "vant";
 import { siteList } from '../api/site';
+import { getUserInfo,saveUserInfo, uploadImage } from '../api/user'
+import { notify , toast} from '../utils/interaction'
 
 export default {
   components: {
@@ -73,7 +79,8 @@ export default {
     [Picker.name]: Picker,
     [Popup.name]: Popup,
     [DatetimePicker.name]: DatetimePicker,
-    [NavBar.name]: NavBar
+    [NavBar.name]: NavBar,
+    [Uploader.name]: Uploader
   },
   data() {
     return {
@@ -81,27 +88,7 @@ export default {
         showPop: false,
         showTime: false,
         minDate: new Date('1900/01/01'),
-        userInfo:{
-          "member_id":"15",
-          "phone":"17600559752",
-          "login_pws":"",
-          "user_name":"吕涛",
-          "user_photo":"https://lian360.oss-cn-beijing.aliyuncs.com//public/videos/20190927/469a99964f2bf3c025036e54f1bb5940.jpg",
-          "train_id":"3",
-          "add_date":"2019-09-22",
-          "role_id":"1",
-          "user_birth":"1992-09-26",
-          "user_sex":"1",
-          "user_education":"硕士",
-          "user_work":"",
-          "user_position":"",
-          "content":"",
-          "remark":"fsdfasfasdfasdfasdfasdfasdfasdfasdfasfas",
-          "create_time":"2019-09-22 17:14:49",
-          "open_id":"oto4R5Y4z_qD_aRRM7RpF9ueDTLw",
-          "auditing":"1",
-          "token":"31313f9c9b975447654e3d705d47f46b"
-        },
+        userInfo:null,
         sites:[],
         pickers: {
           index: '',
@@ -152,10 +139,23 @@ export default {
     },
   },
   created () {
-      this.setUIData();
-      this.getSiteList();
+    
+    this.userinfo(true);
   },
   methods: {
+    userinfo(loading){
+      if (loading){
+        toast.loading();
+      }
+      getUserInfo().then(res => {
+        toast.clear();
+        if (res.code == 10001) {
+          this.userInfo = res.data;
+          this.setUIData();
+          this.getSiteList();
+        }
+      })
+    },
     getSiteList(){
       siteList().then(res => {
         if (res.code == 10001){
@@ -241,9 +241,29 @@ export default {
       return result; 
     },
 
+    imageGetted(file,detail){
+      console.log(file,detail);
+      let params = new FormData();
+      params.append('file', file.content);
+      params.append('type', "2");
+      uploadImage(params).then(res => {
+
+      })
+    },
+
     // 保存修改信息
     saveUserInfo(){
       console.log(this.userInfo);
+      toast.loading('保存中...');
+      saveUserInfo(this.userInfo).then(res => {
+        toast.clear();
+        if (res.code == 10000){
+          notify.success(res.msg);
+          this.userinfo();
+        }else{
+          notify.danger(res.msg);
+        }
+      })
     }
   }
 };

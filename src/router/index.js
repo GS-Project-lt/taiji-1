@@ -32,6 +32,46 @@ const routes = [
     path: '/activity/:id/:valid',
     name: 'activityDetail',
     component: () => import('../views/activity/Detail.vue')
+  },
+  {
+    path: '/help',
+    name: 'help',
+    component: () => import('../views/order/help.vue')
+  },
+  {
+    path: '/sitedetail/:id',
+    name: 'siteDetail',
+    component: () => import('../views/site/detail.vue')
+  },
+  {
+    path: '/site/list',
+    name: 'siteList',
+    component: () => import('../views/site/list.vue')
+  },
+  {
+    path: '/site/member/:leaderId',
+    name: 'siteMember',
+    component: () => import('../views/site/member.vue')
+  },
+  {
+    path: '/teachvideo/:id',
+    name: 'teachVideo',
+    component: () => import('../views/video/teachVideo.vue')
+  },
+  {
+    path: '/teachlist',
+    name: 'teachList',
+    component: () => import('../views/video/teachList.vue')
+  },
+  {
+    path: '/articlelist',
+    name: 'articleList',
+    component: () => import('../views/article/list.vue')
+  },
+  {
+    path: '/article/:id',
+    name: 'articleDetail',
+    component: () => import('../views/article/detail.vue')
   }
 ]
 
