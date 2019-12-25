@@ -5,6 +5,10 @@ export function getUserInfo(){
     return request.post('/centerBase',{});
 }
 
+export function registNew(data){
+    return request.post('/registerUser',data);
+}
+
 export function saveUserInfo(data) {
     return request.post('/appendUser', data)
 }

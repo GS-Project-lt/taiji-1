@@ -8,7 +8,7 @@
       @click-right="saveUserInfo"
       style="margin-top: 46px;"
     /> -->
-    <div  v-if="userInfo">
+    <div>
         <div class="user-header">
           <div class="title">
             我的头像
@@ -45,7 +45,8 @@
         </van-cell-group>
         <div class="temp-view" style="height: 1.1rem;"></div>
         <div class="confirmbutton">
-          <div class="button" @click="saveUserInfo">确认并保存</div>
+          <div class="button" @click="saveUserInfo" v-if="userInfo.token">确认并保存</div>
+          <div class="button" @click="regist" v-else>注册</div>
         </div>
 
     </div>
@@ -68,8 +69,9 @@
 <script>
 import { CellGroup, Field , Cell, Picker, Popup, DatetimePicker ,NavBar , Uploader} from "vant";
 import { siteList } from '../api/site';
-import { getUserInfo,saveUserInfo, uploadImage } from '../api/user'
+import { getUserInfo,saveUserInfo, uploadImage ,registNew} from '../api/user'
 import { notify , toast} from '../utils/interaction'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -82,13 +84,16 @@ export default {
     [NavBar.name]: NavBar,
     [Uploader.name]: Uploader
   },
+  computed: {
+    ...mapGetters(['userInfo','wxUserInfo'])
+  },
   data() {
     return {
         value:'',
         showPop: false,
         showTime: false,
         minDate: new Date('1900/01/01'),
-        userInfo:null,
+        // userInfo:null,
         sites:[],
         pickers: {
           index: '',
@@ -140,7 +145,7 @@ export default {
   },
   created () {
     
-    this.userinfo(true);
+    // this.userinfo(true);
   },
   methods: {
     userinfo(loading){
@@ -248,6 +253,20 @@ export default {
       params.append('type', "2");
       uploadImage(params).then(res => {
 
+      })
+    },
+
+    //注册
+    regist(){
+      registNew(this.userInfo).then(res => {
+        if (res.code == 10000){
+          let userinfo = res.data.user_info;
+          userinfo.token = res.data.token;
+          this.$store.commit('SET_USER_INFO',userinfo);
+          this.$v_notify.success('注册成功');
+        }else{
+          this.$v_notify.warning(res.msg);
+        }
       })
     },
 

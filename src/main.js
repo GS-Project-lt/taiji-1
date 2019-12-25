@@ -5,7 +5,7 @@ import store from './store'
 import '@/assets/js/rem'
 // import '@/assets/css/var.scss'
 import { toast, notify} from '@/utils/interaction'
-import { wxinit } from '@/api/wx.js'
+import { wxinit,wxUserInfo } from '@/api/wx.js'
 import wx from 'weixin-js-sdk'
 import { getUserInfo } from './api/user'
 
@@ -15,7 +15,7 @@ Vue.prototype.$v_notify = notify;
 Vue.prototype.$v_toast = toast;
 Vue.prototype.$wx = wx;
 
-wxinit(store);
+
 
 // 在页面加载时读取sessionStorage
 if (sessionStorage.getItem('store')) {
@@ -26,12 +26,13 @@ window.addEventListener('beforeunload', () => {
   sessionStorage.setItem('store', JSON.stringify(store.state))
 })
 
-getUserInfo().then(res => {
-  if (res.code == 10001) {
-    store.commit('SET_USER_INFO', res.data);
-  }
-})
+if (!store.state.ticket){
+  wxinit(store);
+}
 
+if (!store.state.wxUserInfo){
+  wxUserInfo(store);
+}
 
 new Vue({
   router,
