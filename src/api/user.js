@@ -20,7 +20,7 @@ export function uploadImage(data){
         method: 'post',
         headers: {
             // 'Content-Type': 'multipart/form-data',
-            'u_token': 'MzEzMTNmOWM5Yjk3NTQ0NzY1NGUzZDcwNWQ0N2Y0NmI'
+            'u_token': localStorage.getItem('token')
         },
         url: '/api/singleUpload',
         data

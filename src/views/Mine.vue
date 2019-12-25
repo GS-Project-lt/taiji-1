@@ -14,9 +14,9 @@
             我的头像
           </div>
           <div class="user-pic">
-            <van-uploader :after-read="imageGetted">
+            <!-- <van-uploader :after-read="imageGetted"> -->
               <img :src="userInfo.user_photo" alt="">
-            </van-uploader>
+            <!-- </van-uploader> -->
           </div>
         </div>
         <div class="temp-view" style="height: .36rem;"></div>
@@ -144,7 +144,8 @@ export default {
     },
   },
   created () {
-    
+    this.setUIData();
+    this.getSiteList();
     // this.userinfo(true);
   },
   methods: {
@@ -155,7 +156,7 @@ export default {
       getUserInfo().then(res => {
         toast.clear();
         if (res.code == 10001) {
-          this.userInfo = res.data;
+          this.userInfo = res.data.user_info;
           this.setUIData();
           this.getSiteList();
         }
@@ -264,6 +265,8 @@ export default {
           userinfo.token = res.data.token;
           this.$store.commit('SET_USER_INFO',userinfo);
           this.$v_notify.success('注册成功');
+          this.setUIData();
+          this.getSiteList();
         }else{
           this.$v_notify.warning(res.msg);
         }
@@ -277,8 +280,13 @@ export default {
       saveUserInfo(this.userInfo).then(res => {
         toast.clear();
         if (res.code == 10000){
+          let userinfo = res.data.user_info;
+          userinfo.token = res.data.token;
+          this.$store.commit('SET_USER_INFO',userinfo);
           notify.success(res.msg);
-          this.userinfo();
+          this.setUIData();
+          this.getSiteList();
+
         }else{
           notify.danger(res.msg);
         }
