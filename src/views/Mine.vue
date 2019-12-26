@@ -45,7 +45,7 @@
         </van-cell-group>
         <div class="temp-view" style="height: 1.1rem;"></div>
         <div class="confirmbutton">
-          <div class="button" @click="saveUserInfo" v-if="userInfo.token">确认并保存</div>
+          <div class="button" @click="saveUserInfo" v-if="token">确认并保存</div>
           <div class="button" @click="regist" v-else>注册</div>
         </div>
 
@@ -85,7 +85,7 @@ export default {
     [Uploader.name]: Uploader
   },
   computed: {
-    ...mapGetters(['userInfo','wxUserInfo'])
+    ...mapGetters(['userInfo','wxUserInfo','token'])
   },
   data() {
     return {

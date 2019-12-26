@@ -58,6 +58,8 @@ export default new Vuex.Store({
       if (userinfo.token){
         state.token = userinfo.token;
         localStorage.setItem('token',userinfo.token);
+      }else{
+        localStorage.removeItem('token');
       }
     },
 
@@ -89,6 +91,8 @@ export default new Vuex.Store({
       if (userinfo.token){
         state.token = userinfo.token;
         localStorage.setItem('token',userinfo.token);
+      }else{
+        localStorage.removeItem('token');
       }
     }
 
@@ -97,7 +101,8 @@ export default new Vuex.Store({
     location: state => state.location,
     siteMember: state => state.siteMember,
     userInfo: state => state.userInfo,
-    wxUserInfo: state => state.wxUserInfo
+    wxUserInfo: state => state.wxUserInfo,
+    token: state => state.token
   },
   // actions: {
   // },
