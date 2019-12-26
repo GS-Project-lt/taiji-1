@@ -11,7 +11,7 @@
     
     <!-- 宫格 -->
     <van-grid :border="false" icon-size="0.96rem">
-      <van-grid-item v-for="(grid,index) in grids" :key="'grid'+ index" :icon="grid.icon" :text="grid.name" to="/articlelist"  />
+      <van-grid-item v-for="(grid,index) in grids" :key="'grid'+ index" :icon="grid.icon" :text="grid.name" @click="gridTo(grid.url,index)"  />
     </van-grid>
 
     <!-- 教学视频 -->
@@ -100,6 +100,18 @@ export default {
     bannerLink(banner){
       if (banner.url_address){
           window.location.href = banner.url_address;
+      }
+    },
+    gridTo(url, index){
+      console.log(url, index);
+      let u = '/articlelist';
+      if (index == 2){
+        u = '/help';
+      }
+      if (index == 0 || index == 2){
+        this.$router.push(u);
+      }else{
+        this.$v_notify.primary('功能开发中，不日与大家相见');
       }
     },
     toSiteDetail(id){
