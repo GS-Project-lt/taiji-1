@@ -13,9 +13,11 @@ const server = axios.create({
 
 
 server.interceptors.request.use(config => {
-    config.url = '/api' + config.url;
+    
     if (process.env.NODE_ENV == 'production'){
         config.url = 'https://api.zuxun.net' + config.url;
+    }else{
+        config.url = '/api' + config.url;
     }
     let token  = localStorage.getItem('token');
     if (config.data){
