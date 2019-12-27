@@ -14,29 +14,34 @@ const routes = [
       {
         path: '/home',
         name: 'home',
-        component: () => import('../views/Home.vue')
+        component: () => import('../views/Home.vue'),
+        meta: { title: '青甫太极' }
       },
       {
         path: '/mine',
         name: 'mine',
-        component: () => import('../views/Mine.vue')
+        component: () => import('../views/Mine.vue'),
+        meta: { title: '我的' }
       },
       {
         path: '/activity',
         name: 'activity',
-        component: () => import('../views/activity/Activity.vue')
+        component: () => import('../views/activity/Activity.vue'),
+        meta: { title: '活动' }
       }
     ]
   },
   {
     path: '/activity/:id/:valid',
     name: 'activityDetail',
-    component: () => import('../views/activity/Detail.vue')
+    component: () => import('../views/activity/Detail.vue'),
+    meta: { title: '活动详情' }
   },
   {
     path: '/help',
     name: 'help',
-    component: () => import('../views/order/help.vue')
+    component: () => import('../views/order/help.vue'),
+    meta: { title: '技术捐助' }
   },
   {
     path: '/sitedetail/:id',
