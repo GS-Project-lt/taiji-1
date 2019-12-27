@@ -36,7 +36,13 @@ export default new Vuex.Store({
     userInfo: null,
     wxUserInfo: null,
     ticket: '',
-    token: ''
+    token: '',
+    shareData:{
+      title: '青甫太极',
+      desc: '青甫太极 —— 太极爱好者聚集地',
+      link: window.location.origin + window.location.pathname,
+      imgUrl: ''
+    }
   },
   mutations: {
     // 设置位置
@@ -102,7 +108,8 @@ export default new Vuex.Store({
     siteMember: state => state.siteMember,
     userInfo: state => state.userInfo,
     wxUserInfo: state => state.wxUserInfo,
-    token: state => state.token
+    token: state => state.token,
+    shareData: state => state.shareData
   },
   // actions: {
   // },

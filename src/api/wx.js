@@ -7,7 +7,7 @@ export function wxinit(store) {
   request.post("/get_jsapi_ticket_tj").then(res => {
     let signature = sign(res.data);
     store.commit('SET_TICKET', res.data);
-    wxSDK.init(signature, null, () => {
+    wxSDK.init(signature, store.state.shareData, () => {
       // 获取位置信息
       wx.getLocation({
         type: "wgs84",
