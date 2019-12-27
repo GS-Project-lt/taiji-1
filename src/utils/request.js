@@ -37,8 +37,8 @@ server.interceptors.response.use(response => {
     if (res.code == 27){
         // 缺少token，去注册
         Dialog.alert({
-            title: '提示',
-            message: '请前往“我的”进行注册'
+            title: '还未注册会员',
+            message: '请前往“我的”完善信息'
         }).then(() => {
             router.replace('/mine');
         });
