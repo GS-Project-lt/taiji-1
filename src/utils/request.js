@@ -40,7 +40,7 @@ server.interceptors.response.use(response => {
             title: '还未注册会员',
             message: '请前往“我的”完善信息'
         }).then(() => {
-            router.replace('/mine');
+            router.replace('/me');
         });
     }
     return res;

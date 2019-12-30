@@ -37,7 +37,7 @@
           v-else
           src="@/assets/img/tab/2-0.png"/>
       </van-tabbar-item>
-      <van-tabbar-item replace to="/mine">
+      <van-tabbar-item replace to="/me">
         <span>我的</span>
         <img
           slot="icon"

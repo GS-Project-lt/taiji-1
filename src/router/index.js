@@ -18,8 +18,8 @@ const routes = [
         meta: { title: '青甫太极' }
       },
       {
-        path: '/mine',
-        name: 'mine',
+        path: '/me',
+        name: 'me',
         component: () => import('../views/Mine.vue'),
         meta: { title: '我的' }
       },
