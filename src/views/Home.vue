@@ -103,14 +103,14 @@ export default {
       }
     },
     gridTo(url, index){
-      console.log(url, index);
-      let u = '/articlelist';
-      if (index == 2){
-        u = '/help';
+      if (index == 0){
+          window.location.href = "https://mp.weixin.qq.com/mp/homepage?__biz=MzU3OTM1MjM3MA==&hid=3&sn=4a463aa0dcab79af6d7598eb19ab230d&scene=18"
+      }else if(index == 1){
+          window.location.href = "https://mp.weixin.qq.com/mp/homepage?__biz=MzU3OTM1MjM3MA==&hid=2&sn=878d597b09b9096293c75de2c812ee61&scene=18"
+      }else if(index == 2){
+          this.$router.push('/help');
       }
-      if (index == 0 || index == 2){
-        this.$router.push(u);
-      }else{
+      else{
         this.$v_notify.primary('功能开发中，不日与大家相见');
       }
     },

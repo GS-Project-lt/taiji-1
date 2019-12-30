@@ -26,9 +26,8 @@ window.addEventListener('beforeunload', () => {
   sessionStorage.setItem('store', JSON.stringify(store.state))
 })
 
-if (!store.state.ticket){
-  wxinit(store);
-}
+wxinit(store);
+
 
 if (!store.state.wxUserInfo){
   wxUserInfo(store);

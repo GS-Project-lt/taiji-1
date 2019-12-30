@@ -3,22 +3,32 @@ import wxSDK from "@/utils/wx";
 import request from "@/utils/request";
 import wx from "weixin-js-sdk";
 
+
 export function wxinit(store) {
-  request.post("/get_jsapi_ticket_tj").then(res => {
-    let signature = sign(res.data);
-    store.commit('SET_TICKET', res.data);
-    wxSDK.init(signature, store.state.shareData, () => {
-      // 获取位置信息
-      wx.getLocation({
-        type: "wgs84",
-        success: function(res) {
-          console.log("location", res);
-          store.commit("SET_LOCATION", {
-            lat: res.latitude,
-            lon: res.longitude
-          });
-        }
-      });
+  if (store.state.ticket){
+    initwx(store.state.ticket,store)
+  }else{
+    request.post("/get_jsapi_ticket_tj").then(res => {
+      initwx(res.data, store)
+    });
+  }
+  
+}
+
+function initwx(ticket, store) {
+  let signature = sign(ticket);
+  store.commit('SET_TICKET', ticket);
+  wxSDK.init(signature, store.state.shareData, () => {
+    // 获取位置信息
+    wx.getLocation({
+      type: "wgs84",
+      success: function(res) {
+        console.log("location", res);
+        store.commit("SET_LOCATION", {
+          lat: res.latitude,
+          lon: res.longitude
+        });
+      }
     });
   });
 }

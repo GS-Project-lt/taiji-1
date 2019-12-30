@@ -15,7 +15,7 @@ function encodeUTF8(s) {
   }
   
   // 字符串加密成 hex 字符串
-  function sha1(s) {
+  function sha1_temp(s) {
     var data = new Uint8Array(encodeUTF8(s))
     var i, j, t;
     var l = ((data.length + 8) >>> 6 << 4) + 16;
@@ -49,6 +49,8 @@ function encodeUTF8(s) {
     }).join("");
     return hex;
   }
+
+  import sha1 from 'js-sha1'
  
 export function sign(ticket){
     window.console.log(ticket);
@@ -56,10 +58,10 @@ export function sign(ticket){
     nonceStr = 'HuyeTsUqiwO', 
     signature = '';
     
-    signature =  `jsapi_ticket=${ticket}&noncestr=${nonceStr}&timestamp=${timestamp}&url=${window.location.origin}/`
-    
+    signature =  `jsapi_ticket=${ticket}&noncestr=${nonceStr}&timestamp=${timestamp}&url=${window.location.href.split('#')[0]}`
+    console.log(signature);
     signature = sha1(signature);
-
+    console.log(signature);
     return {
       timestamp,
       nonceStr,

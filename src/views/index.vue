@@ -25,7 +25,7 @@
           v-else
           src="@/assets/img/tab/1-0.png"/>
       </van-tabbar-item>
-      <van-tabbar-item replace to="/activity" icon="search">
+      <van-tabbar-item replace to="/activity">
         <span>活动</span>
         <img
           slot="icon"
@@ -37,7 +37,7 @@
           v-else
           src="@/assets/img/tab/2-0.png"/>
       </van-tabbar-item>
-      <van-tabbar-item replace to="/mine" icon="search">
+      <van-tabbar-item replace to="/mine">
         <span>我的</span>
         <img
           slot="icon"
