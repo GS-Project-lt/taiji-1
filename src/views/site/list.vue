@@ -50,7 +50,9 @@ export default {
     };
   },
   created() {
-    this.$store.commit("SET_LOCATION", { lon: "11", lat: "22" });
+    if (!this.$store.state.location.lon){
+        this.$store.commit("SET_LOCATION", { lon: "11", lat: "22" });
+    }
     adBanners().then(res => {
         if (res.code == 10001){
             this.banners = res.data;
@@ -153,7 +155,7 @@ export default {
     height: 0.24rem;
     position: absolute;
     left: 0.08rem;
-    top: 0.09rem;
+    top: 0.2rem;
   }
 }
 </style>
