@@ -34,7 +34,7 @@ function initwx(ticket, store) {
 }
 
 export function wxUserInfo(store) {
-  if (window.location.search && window.location.search.indexOf('code=')){
+  if (window.location.search && window.location.search.indexOf('code=') > 0){
     let code = window.location.search.split("&");
     code = code[0];
     code = code.split("=");
