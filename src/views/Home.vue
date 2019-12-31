@@ -201,7 +201,7 @@ export default {
 
 .video-pic{
   width: 100%;
-  height: 1.8rem;
+  height: 3rem;
   border-radius: 0.06rem;
   object-fit: cover;
 }
