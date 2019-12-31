@@ -51,7 +51,7 @@ export default {
   },
   created() {
     if (!this.$store.state.location.lon){
-        this.$store.commit("SET_LOCATION", { lon: "11", lat: "22" });
+        this.$store.commit("SET_LOCATION", { lon: "114.5067397", lat: "38.05060972" });
     }
     adBanners().then(res => {
         if (res.code == 10001){
@@ -147,15 +147,18 @@ export default {
     color: #59a4e9;
     font-size: 0.24rem;
     border-radius: 0.02rem;
-    padding-left: 0.36rem;
+    // padding-left: 0.36rem;
+    display: flex;
+    align-items: center;
   }
 
   .position img {
     width: 0.2rem;
     height: 0.24rem;
-    position: absolute;
-    left: 0.08rem;
-    top: 0.2rem;
+    // position: absolute;
+    // left: 0.08rem;
+    // top: 0.2rem;
+    margin-right: .1rem;
   }
 }
 </style>

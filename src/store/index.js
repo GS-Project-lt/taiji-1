@@ -41,7 +41,7 @@ export default new Vuex.Store({
       title: '青甫太极',
       desc: '青甫太极 —— 太极爱好者聚集地',
       link: window.location.origin + window.location.pathname,
-      imgUrl: 'https://www.gshsoft.com/logo.png'
+      imgUrl: 'https://api.zuxun.net/logo.jpg'
     }
   },
   mutations: {

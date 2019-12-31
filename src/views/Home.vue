@@ -87,7 +87,14 @@ export default {
   },
   created () {
     toast.loading();
-    getHomeData().then(res => {
+    let params = {};
+    if (this.$store.state.location.lon){
+      params = {
+        longitude: this.$store.state.location.lon,
+        latitude: this.$store.state.location.lat
+      }
+    }
+    getHomeData(params).then(res => {
       this.grids = res.data.sys_function;
       this.banners = res.data.index_top_banner;
       this.videos = res.data.home_mid;
