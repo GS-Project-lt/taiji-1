@@ -297,6 +297,7 @@ export default {
 .site_member {
   margin-top: 0.2rem;
   background-color: white;
+  padding-bottom: 1.2rem;
   .title {
     padding: 0.3rem;
     font-size: 0.36rem;
