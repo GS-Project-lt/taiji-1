@@ -64,7 +64,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import { Swipe, SwipeItem , Grid, GridItem, Row, Col, Icon} from 'vant'
 import { getHomeData } from '../api/home'
 import { toast } from '@/utils/interaction'
-
+import {mapGetters } from 'vuex'
 export default {
   name: 'home',
   components: {
@@ -76,6 +76,9 @@ export default {
     [Col.name]: Col,
     [Icon.name]: Icon
   },
+  computed: {
+    ...mapGetters(['location'])
+  },
   data () {
     return {
       grids: [],
@@ -86,24 +89,35 @@ export default {
     }
   },
   created () {
-    toast.loading();
-    let params = {};
-    if (this.$store.state.location.lon){
-      params = {
-        longitude: this.$store.state.location.lon,
-        latitude: this.$store.state.location.lat
-      }
+    this.getHomeData(true);
+  },
+  watch:{
+    location(){
+      this.getHomeData();
+      console.log(this.$store.state.location);
     }
-    getHomeData(params).then(res => {
-      this.grids = res.data.sys_function;
-      this.banners = res.data.index_top_banner;
-      this.videos = res.data.home_mid;
-      this.sites = res.data.train_site;
-      toast.clear();
-      this.loadSuccess = true;
-    })
   },
   methods: {
+    getHomeData(loading){
+      if (loading){
+        toast.loading();
+      }
+        let params = {};
+        if (this.$store.state.location.lon){
+          params = {
+            longitude: this.$store.state.location.lon,
+            latitude: this.$store.state.location.lat
+          }
+        }
+        getHomeData(params).then(res => {
+          this.grids = res.data.sys_function;
+          this.banners = res.data.index_top_banner;
+          this.videos = res.data.home_mid;
+          this.sites = res.data.train_site;
+          toast.clear();
+          this.loadSuccess = true;
+        })
+    },
     bannerLink(banner){
       if (banner.url_address){
           window.location.href = banner.url_address;
