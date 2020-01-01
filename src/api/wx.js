@@ -3,7 +3,6 @@ import wxSDK from "@/utils/wx";
 import request from "@/utils/request";
 import wx from "weixin-js-sdk";
 
-
 export function wxinit(store) {
   if (store.state.ticket){
     initwx(store.state.ticket,store)
@@ -33,17 +32,13 @@ function initwx(ticket, store) {
   });
 }
 
-export function wxUserInfo(store) {
+export function wxUserInfo() {
   if (window.location.search && window.location.search.indexOf('code=') > 0){
     let code = window.location.search.split("&");
     code = code[0];
     code = code.split("=");
     code = code[1];
-    request.post(`/get_user_info_tj?code=${code}`).then(res => {
-      if (res.code == 10001) {
-        store.commit('SET_WX_USERINFO',  res.data);
-      }
-    }); 
+    return request.post(`/get_user_info_tj?code=${code}`);
   }else{
     // 链接没有code，跳转微信授权
     window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1e1c4e1ad79481d6&redirect_uri=${encodeURIComponent(window.location.origin + window.location.pathname)}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`

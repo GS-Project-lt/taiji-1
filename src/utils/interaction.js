@@ -1,4 +1,4 @@
-import { Toast, Notify, Dialog } from "vant";
+import { Toast, Notify } from "vant";
 
 const toast = {
   loading(msg) {
