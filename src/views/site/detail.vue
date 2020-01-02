@@ -148,7 +148,7 @@ export default {
     // 去成员详情
     toMember(member) {
       
-      if (this.$store.userInfo && this.member && this.$store.userInfo.member_id  == this.member.member_id){
+      if (this.$store.state.userInfo && this.member && this.$store.state.userInfo.member_id  == this.member.member_id){
         // 本站站长可以查看会员信息
         this.$store.commit("SET_SITE_MEMBER", member);
         if (this.member && this.member.member_id) {
