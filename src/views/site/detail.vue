@@ -147,12 +147,19 @@ export default {
 
     // 去成员详情
     toMember(member) {
-      this.$store.commit("SET_SITE_MEMBER", member);
-      if (this.member && this.member.member_id) {
-        this.$router.push(`/site/member/${this.member.member_id}`);
-      } else {
-        this.$router.push(`/site/member/0`);
+      
+      if (this.$store.userInfo && this.member && this.$store.userInfo.member_id  == this.member.member_id){
+        // 本站站长可以查看会员信息
+        this.$store.commit("SET_SITE_MEMBER", member);
+        if (this.member && this.member.member_id) {
+          this.$router.push(`/site/member/${this.member.member_id}`);
+        } else {
+          this.$router.push(`/site/member/0`);
+        }
+      } else{
+        this.$v_notify.warning('只有本站站长才能查看学员信息');
       }
+      
     },
 
     onInput(value) {

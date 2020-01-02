@@ -50,7 +50,7 @@
 
    
     
-    <span v-if="isLeader">
+    <span v-if="siteMember">
         <div class='save-button' v-if="siteMember.auditing == '0'">
             <div class='button-content' @click="passAudit">审核通过</div>
         </div>
@@ -75,18 +75,18 @@ export default {
 
   data() {
     return {
-      siteMember: {},
+      siteMember: null,
       userInfo: { auditing: "1" },
-      isLeader: false,
+      isLeader: true,
     };
   },
   created() {
     this.siteMember = this.$store.state.siteMember;
-    getUserInfo().then(res => {
-        if (res.data && res.data.member_id == this.$route.params.leaderId && this.siteMember.member_id != this.$route.params.leaderId){
-            this.isLeader  = true;
-        }
-    })
+    // getUserInfo().then(res => {
+    //     if (res.data && res.data.member_id == this.$route.params.leaderId && this.siteMember.member_id != this.$route.params.leaderId){
+    //         this.isLeader  = true;
+    //     }
+    // })
   },
   methods: {
       // 打电话
