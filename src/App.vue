@@ -18,7 +18,7 @@ body{
   justify-content: center;
 
   .app-container{
-    max-width: 500px;
+    max-width: 750px;
     width: 100%;
   }
 }
