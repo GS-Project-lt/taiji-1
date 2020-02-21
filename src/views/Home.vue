@@ -155,7 +155,7 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss" type="text/scss" scoped>
 
 .home{
   padding-bottom: 1.3rem;
@@ -164,6 +164,7 @@ export default {
 .banner-container{
   padding: .3rem;
   padding-bottom: 0;
+  height: 3.2rem;
   .banner-pic{
     width: 100%;
     border-radius: .1rem;

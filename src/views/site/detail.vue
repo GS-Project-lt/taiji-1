@@ -100,6 +100,7 @@ import { siteDetail, applyJoinSite, exitSite } from "../../api/site";
 import { createOrder } from "../../api/order";
 
 import { Icon, Dialog, NumberKeyboard, Field, Overlay } from "vant";
+import wxSDK from '@/utils/wx.js'
 
 export default {
   components: {
@@ -124,6 +125,18 @@ export default {
     this.getDetail();
   },
   methods: {
+    initShare(info){
+      if (!info) {
+        return;
+      }
+      let s = {
+        title: info.train_name ? `青甫太极${info.train_name}` : '青甫太极',
+        desc: info.remark || '青甫太极 —— 太极爱好者聚集地',
+        link: window.location.origin + window.location.pathname + window.location.hash,
+        imgUrl: info.train_img_full || 'https://api.zuxun.net/logo.jpg'
+      }
+      wxSDK.share(s)
+    },
     getDetail() {
       this.$toast.loading();
       siteDetail({
@@ -139,6 +152,7 @@ export default {
           this.memberlist = res.data.memberlist;
           this.is_in = res.data.is_in;
           this.memberCount = res.data.mebmercount;
+          this.initShare(res.data.trainSite)
         } else {
           this.$notify.warning(res.msg);
         }

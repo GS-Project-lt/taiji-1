@@ -41,7 +41,7 @@ export function wxUserInfo() {
     return request.post(`/get_user_info_tj?code=${code}`);
   }else{
     // 链接没有code，跳转微信授权
-    window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1e1c4e1ad79481d6&redirect_uri=${encodeURIComponent(window.location.origin + window.location.pathname)}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`
+    window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1e1c4e1ad79481d6&redirect_uri=${encodeURIComponent(window.location.origin + window.location.pathname + window.location.hash)}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`
   }
   
 }

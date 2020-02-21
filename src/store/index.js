@@ -40,9 +40,10 @@ export default new Vuex.Store({
     shareData:{
       title: '青甫太极',
       desc: '青甫太极 —— 太极爱好者聚集地',
-      link: window.location.origin + window.location.pathname,
+      link: window.location.origin + window.location.pathname + window.location.hash,
       imgUrl: 'https://api.zuxun.net/logo.jpg'
-    }
+    },
+    showHomeBack: false
   },
   mutations: {
     // 设置位置
@@ -100,6 +101,10 @@ export default new Vuex.Store({
       }else{
         localStorage.removeItem('token');
       }
+    },
+
+    SET_SHOWBACKHOME: (state, isshow) => {
+      state.showHomeBack = isshow;
     }
 
   },
@@ -109,7 +114,8 @@ export default new Vuex.Store({
     userInfo: state => state.userInfo,
     wxUserInfo: state => state.wxUserInfo,
     token: state => state.token,
-    shareData: state => state.shareData
+    shareData: state => state.shareData,
+    showHomeBack: state => state.showHomeBack
   },
   // actions: {
   // },

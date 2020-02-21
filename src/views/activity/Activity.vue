@@ -67,7 +67,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" type="text/scss" scoped>
 
 .activity-box{
     min-height: 100vh; padding: .3rem; background-color: #F5F5F5;
@@ -78,6 +78,8 @@ export default {
         background-color: white;
         overflow: hidden;
         position: relative;
+        margin-bottom: .3rem;
+
         .act-pic{
             width: 100%;
             height: auto;
@@ -100,7 +102,7 @@ export default {
         }
 
         .act-tag-active-playing{
-            background: greenyellow;
+            background: rgb(107, 187, 25);
         }
 
         .content{

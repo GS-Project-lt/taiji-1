@@ -29,7 +29,7 @@ import "video.js/dist/video-js.css";
 import { videoPlayer } from "vue-video-player";
 import { teachVideo } from '../../api/video';
 import { Row, Col } from 'vant'
-
+import wxSDK from '@/utils/wx.js'
 export default {
   components: {
     videoPlayer,
@@ -71,7 +71,7 @@ export default {
           durationDisplay: true,
           remainingTimeDisplay: false,
           //全屏按钮
-          fullscreenToggle: false
+          fullscreenToggle: true
         }
       },
       base: null,
@@ -79,9 +79,22 @@ export default {
     };
   },
   created () {
-    this.getVideoInfo();  
+    this.getVideoInfo();
+
   },
   methods: {
+      initShare(info){
+          if (!info) {
+              return;
+          }
+          let s = {
+              title: info.item_name || '青甫太极',
+              desc: info.summary || '青甫太极 —— 太极爱好者聚集地',
+              link: window.location.origin + window.location.pathname + window.location.hash,
+              imgUrl: info.photo || 'https://api.zuxun.net/logo.jpg'
+          }
+          wxSDK.share(s)
+      },
       getVideoInfo(){
           this.$v_toast.loading();
             teachVideo({
@@ -91,6 +104,7 @@ export default {
                 if (res.code == 10001){
                     this.list = res.data.list;
                     this.exchangeVideo(res.data.base);
+                    this.initShare(res.data.base);
                 }else{
                     this.$v_notify.danger(res.msg);
                     this.$router.go(-1)

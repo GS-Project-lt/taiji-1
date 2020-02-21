@@ -10,6 +10,7 @@
 <script>
 import { activityDetail,activityEnroll } from '../../api/activity'
 import { notify  } from '@/utils/interaction'
+import wxSDK from '@/utils/wx.js'
 
 export default {
     data () {
@@ -27,6 +28,18 @@ export default {
         this.getActivity();
     },
     methods: {
+        initShare(info){
+            if (!info) {
+                return;
+            }
+            let s = {
+                title: info.activity_title || '青甫太极',
+                desc: info.address || '青甫太极 —— 太极爱好者聚集地',
+                link: window.location.origin + window.location.pathname + window.location.hash,
+                imgUrl: info.activity_pic_full || 'https://api.zuxun.net/logo.jpg'
+            }
+            wxSDK.share(s)
+        },
         getActivity(){
             activityDetail({
                 activity_id: this.$route.params.id
@@ -37,6 +50,7 @@ export default {
                     this.buttontext = res.data.is_enroll == 0 ? '去报名' : '已报名';
                     this.is_enroll = res.data.is_enroll;
                     this.activituInfo = res.data;
+                    this.initShare(res.data)
                 }
             })  
         },
