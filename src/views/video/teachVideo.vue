@@ -11,6 +11,10 @@
     <div class="video-desc" v-if="base">
         <div class="video-title">动作要领</div>
         <div class="show-detail">{{base.chapter_action}}</div>
+        <div class="show-detail" style="text-align: right">
+            <span v-if="base.broadcast_num > 0" >播放：{{base.broadcast_num}}次</span>
+            <span v-if="base.relay_num > 0" style="margin-left: .5rem;">转发：{{base.relay_num}}次</span>
+        </div>
     </div>
     <div class="video-box" v-for="(item, name) in list" :key="name">
         <div class="title">{{name}}</div>
@@ -28,6 +32,7 @@
 import "video.js/dist/video-js.css";
 import { videoPlayer } from "vue-video-player";
 import { teachVideo } from '../../api/video';
+import { videoPlayNumber,videoShareNumber } from "../../api/visitor";
 import { Row, Col } from 'vant'
 import wxSDK from '@/utils/wx.js'
 export default {
@@ -80,18 +85,21 @@ export default {
   },
   created () {
     this.getVideoInfo();
-
   },
   methods: {
       initShare(info){
           if (!info) {
               return;
           }
+          let _this = this;
           let s = {
               title: info.item_name || '青甫太极',
               desc: info.summary || '青甫太极 —— 太极爱好者聚集地',
               link: window.location.origin + window.location.pathname + window.location.hash,
-              imgUrl: info.photo || 'https://api.zuxun.net/logo.jpg'
+              imgUrl: info.photo || 'https://api.zuxun.net/logo.jpg',
+              success: () => {
+                  videoShareNumber(info.chapter_id)
+              }
           }
           wxSDK.share(s)
       },
@@ -105,6 +113,7 @@ export default {
                     this.list = res.data.list;
                     this.exchangeVideo(res.data.base);
                     this.initShare(res.data.base);
+                    videoPlayNumber(res.data.base.chapter_id)
                 }else{
                     this.$v_notify.danger(res.msg);
                     this.$router.go(-1)

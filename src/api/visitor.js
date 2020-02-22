@@ -44,3 +44,18 @@ export function miniVideoPlaynumber(id) {
     work_type: 3
   });
 }
+
+export function videoPlayNumber(id) {
+  return request.post('/updateNum', {
+    chapter_id: id,
+    field: 1
+  })
+}
+
+export function videoShareNumber(id) {
+  return request.post('/updateNum', {
+    chapter_id: id,
+    field: 2
+  })
+}
+
